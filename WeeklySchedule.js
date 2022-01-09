@@ -137,27 +137,6 @@ function removeItem() {
     saveItems();
 }
 
-/*
-//Pushes the item to the previous day when the blue button is clicked
-function pushToPrevDay() {
-    var curDay = this.parentElement.parentElement.id.slice(0,3);
-    var parcel = this.parentElement;
-    this.parentElement.remove();
-    if (curDay === "mon") {
-        document.getElementById('wkd-list').appendChild(parcel);
-    } else {
-        var i;
-        for (i = 0; i < days.length; i++) {
-            if (days[i] === curDay) {
-                document.getElementById(days[i - 1] + '-list').appendChild(parcel);
-                break;
-            }
-        }
-    }
-    saveItems();
-}
-*/
-
 //Pushes the item to the next day when the blue button is clicked
 function pushToNextDay() {
     var curDay = this.parentElement.parentElement.id.slice(0,3);
@@ -205,15 +184,18 @@ function getDay() {
     return days[dayIndex];
 }
 
+//handling which components items can be drag and dropped to
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
+//handling item drag behavior
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.getElementsByClassName("list-item-text")[0].innerHTML);
     console.log(ev.target.getElementsByClassName("list-item-text")[0].innerHTML);
 }
 
+//handling item drop behavior
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
@@ -222,6 +204,7 @@ function drop(ev) {
 
 }
 
+//removing item that has been drag and dropped from original position
 function removeDragged(ev) {
     ev.target.remove();
     saveItems();
